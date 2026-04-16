@@ -20,3 +20,4 @@ The format follows Keep a Changelog conventions and semantic versioning intent.
 - Stage 4 tests for readiness timing behavior, launch-plan contracts, and API surface verification.
 - Stage 5 deployment slice: systemd units, startup/smoke scripts, environment template, and deployment readiness contract endpoint.
 - Stage 5 tests for deployment readiness contract logic and API response schema.
+- Stage 5 installer automation: `deployment/scripts/install_pi.sh` for iterative setup, optional systemd install/start, and optional smoke checks.

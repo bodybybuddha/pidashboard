@@ -7,6 +7,7 @@
 - [x] Added API and kiosk systemd unit files
 - [x] Added startup scripts for API and kiosk processes
 - [x] Added deployment smoke-check script
+- [x] Added iterative installer script with optional systemd flow
 - [x] Added environment template for Pi runtime
 - [x] Added Stage 5 unit and integration tests
 

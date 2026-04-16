@@ -1,5 +1,14 @@
 # Raspberry Pi Deployment Runbook
 
+## 0. Fast iterative installer (recommended)
+
+Use the installer script for repeatable setup and iterative testing:
+
+- Local iterative setup (no systemd install):
+   - `deployment/scripts/install_pi.sh --project-dir "$PWD"`
+- Full systemd install and start:
+   - `deployment/scripts/install_pi.sh --project-dir /opt/pidashboard --with-systemd --start-services --run-smoke`
+
 ## 1. Copy and prepare project
 
 1. Copy project to target path:
