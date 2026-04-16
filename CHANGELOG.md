@@ -16,3 +16,5 @@ The format follows Keep a Changelog conventions and semantic versioning intent.
 - Device status state mutations and MQTT-focused unit/integration contract tests.
 - Stage 3 UI/plugin slice: plugin contracts and registry, default card plugins, and server-rendered dashboard route with template-backed cards.
 - Stage 3 tests covering plugin failure isolation and dashboard HTML card rendering.
+- Stage 4 shell/runtime slice: shell runtime config/readiness utilities, launch-plan builder, and `/api/system/shell/launch-plan` contract endpoint.
+- Stage 4 tests for readiness timing behavior, launch-plan contracts, and API surface verification.
