@@ -2,6 +2,10 @@
 
 ## On Raspberry Pi
 
+Preferred path for iterative testing:
+
+- `deployment/scripts/install_pi.sh --project-dir "$PWD"`
+
 1. Install dependencies and create virtual environment.
 2. Configure deployment environment file.
 3. Install and enable systemd units.

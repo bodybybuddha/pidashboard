@@ -99,6 +99,7 @@ Completed:
 - Added service launch entrypoint placeholder in `src/pidashboard/shell_entry.py`.
 - Added systemd unit files for API and kiosk services under `deployment/systemd`.
 - Added startup and smoke-check scripts under `deployment/scripts` and example environment file under `deployment/env`.
+- Added iterative installer script `deployment/scripts/install_pi.sh` with optional systemd install/start and smoke-check flags.
 - Added Stage 5 unit and integration tests for deployment readiness contracts and API route.
 - Verified test suite: `pytest -q` (22 passed).
 
