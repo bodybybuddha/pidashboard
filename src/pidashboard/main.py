@@ -10,6 +10,8 @@ from pidashboard.core.websocket import WebSocketManager
 from pidashboard.mqtt.ingestion import MQTTIngestionService
 from pidashboard.plugins.defaults import DeviceSummaryPlugin, ModeCardPlugin
 from pidashboard.plugins.registry import PluginRegistry
+from pidashboard.shell.launch import build_launch_plan
+from pidashboard.shell.runtime import config_from_env
 
 app = FastAPI(title="PiDashboard", version="0.1.0")
 state_store = StateStore()
@@ -69,6 +71,11 @@ async def ingest_mqtt(payload: MQTTIngestRequest) -> dict:
         return {"accepted": True, "state": snapshot}
 
     return {"accepted": False, "reason": "message_not_mapped"}
+
+
+@app.get("/api/system/shell/launch-plan", tags=["system"])
+def shell_launch_plan() -> dict[str, object]:
+    return build_launch_plan(config_from_env())
 
 
 @app.websocket("/ws")

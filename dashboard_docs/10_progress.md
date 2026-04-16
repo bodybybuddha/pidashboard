@@ -4,7 +4,7 @@ This file tracks execution status for the v1 multi-stage plan.
 
 ## Current Stage
 
-- Stage: 4 - Kiosk Shell + Runtime Integration
+- Stage: 5 - Deployment + Hardening
 - Status: Ready to Start
 - Last Updated: 2026-04-16
 
@@ -16,7 +16,7 @@ This file tracks execution status for the v1 multi-stage plan.
 | 1 | Core Contracts | Completed | State store + websocket manager + state API contracts implemented; `pytest -q` passed (5 tests) |
 | 2 | MQTT Ingestion + Normalization | Completed (Slice) | Normalizer + ingestion service + mapped topic contracts + tests; `pytest -q` passed (12 tests) |
 | 3 | UI Rendering + Plugin Framework | Completed (Slice) | Plugin registry + default card plugins + rendered dashboard route + tests; `pytest -q` passed (14 tests) |
-| 4 | Kiosk Shell + Runtime Integration | Not Started | Pending implementation |
+| 4 | Kiosk Shell + Runtime Integration | Completed (Slice) | Shell runtime config/readiness contracts + launch-plan API + tests; `pytest -q` passed (19 tests) |
 | 5 | Deployment + Hardening | Not Started | Pending implementation |
 
 ## Work Log
@@ -79,3 +79,16 @@ Blocked:
 
 Next:
 - Implement Stage 4 shell runtime readiness checks and launch configuration contracts.
+
+Completed:
+- Added shell runtime config and backend readiness contract utilities in `src/pidashboard/shell/runtime.py`.
+- Added deterministic shell launch-plan builder in `src/pidashboard/shell/launch.py`.
+- Added system contract endpoint (`GET /api/system/shell/launch-plan`) in `src/pidashboard/main.py`.
+- Added Stage 4 unit and integration tests for readiness behavior and launch-plan API contract.
+- Verified test suite: `pytest -q` (19 passed).
+
+Blocked:
+- None.
+
+Next:
+- Start Stage 5 deployment slice (systemd assets, startup scripts, and Pi smoke checklist updates).
