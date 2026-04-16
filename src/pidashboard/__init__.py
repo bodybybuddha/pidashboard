@@ -1,0 +1,1 @@
+"""PiDashboard package root."""
