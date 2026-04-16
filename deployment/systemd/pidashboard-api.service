@@ -1,0 +1,17 @@
+[Unit]
+Description=PiDashboard FastAPI Service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/pidashboard
+EnvironmentFile=/opt/pidashboard/deployment/env/pidashboard.env
+ExecStart=/opt/pidashboard/deployment/scripts/start_api.sh
+Restart=always
+RestartSec=3
+User=pi
+Group=pi
+
+[Install]
+WantedBy=multi-user.target

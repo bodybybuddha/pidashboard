@@ -1,0 +1,17 @@
+[Unit]
+Description=PiDashboard Kiosk Shell Service
+After=pidashboard-api.service graphical.target
+Requires=pidashboard-api.service
+
+[Service]
+Type=simple
+WorkingDirectory=/opt/pidashboard
+EnvironmentFile=/opt/pidashboard/deployment/env/pidashboard.env
+ExecStart=/opt/pidashboard/deployment/scripts/start_kiosk.sh
+Restart=always
+RestartSec=3
+User=pi
+Group=pi
+
+[Install]
+WantedBy=graphical.target

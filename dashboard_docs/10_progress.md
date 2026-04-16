@@ -5,7 +5,7 @@ This file tracks execution status for the v1 multi-stage plan.
 ## Current Stage
 
 - Stage: 5 - Deployment + Hardening
-- Status: Ready to Start
+- Status: In Progress
 - Last Updated: 2026-04-16
 
 ## Stage Status Summary
@@ -17,7 +17,7 @@ This file tracks execution status for the v1 multi-stage plan.
 | 2 | MQTT Ingestion + Normalization | Completed (Slice) | Normalizer + ingestion service + mapped topic contracts + tests; `pytest -q` passed (12 tests) |
 | 3 | UI Rendering + Plugin Framework | Completed (Slice) | Plugin registry + default card plugins + rendered dashboard route + tests; `pytest -q` passed (14 tests) |
 | 4 | Kiosk Shell + Runtime Integration | Completed (Slice) | Shell runtime config/readiness contracts + launch-plan API + tests; `pytest -q` passed (19 tests) |
-| 5 | Deployment + Hardening | Not Started | Pending implementation |
+| 5 | Deployment + Hardening | In Progress | systemd units + startup scripts + deployment readiness API + tests; `pytest -q` passed (22 tests) |
 
 ## Work Log
 
@@ -92,3 +92,19 @@ Blocked:
 
 Next:
 - Start Stage 5 deployment slice (systemd assets, startup scripts, and Pi smoke checklist updates).
+
+Completed:
+- Added deployment readiness contract checks in `src/pidashboard/deployment/contracts.py`.
+- Added deployment readiness API endpoint (`GET /api/system/deployment/readiness`) in `src/pidashboard/main.py`.
+- Added service launch entrypoint placeholder in `src/pidashboard/shell_entry.py`.
+- Added systemd unit files for API and kiosk services under `deployment/systemd`.
+- Added startup and smoke-check scripts under `deployment/scripts` and example environment file under `deployment/env`.
+- Added Stage 5 unit and integration tests for deployment readiness contracts and API route.
+- Verified test suite: `pytest -q` (22 passed).
+
+Blocked:
+- None.
+
+Next:
+- Add Raspberry Pi install and service enablement runbook validation steps.
+- Add deployment smoke execution notes for first-boot and restart scenarios.

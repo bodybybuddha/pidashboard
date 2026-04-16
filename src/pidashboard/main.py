@@ -6,6 +6,7 @@ from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from pidashboard.core.state import StateStore
+from pidashboard.deployment.contracts import check_deployment_readiness
 from pidashboard.core.websocket import WebSocketManager
 from pidashboard.mqtt.ingestion import MQTTIngestionService
 from pidashboard.plugins.defaults import DeviceSummaryPlugin, ModeCardPlugin
@@ -76,6 +77,12 @@ async def ingest_mqtt(payload: MQTTIngestRequest) -> dict:
 @app.get("/api/system/shell/launch-plan", tags=["system"])
 def shell_launch_plan() -> dict[str, object]:
     return build_launch_plan(config_from_env())
+
+
+@app.get("/api/system/deployment/readiness", tags=["system"])
+def deployment_readiness() -> dict[str, object]:
+    readiness = check_deployment_readiness()
+    return {"ready": readiness.ready, "missing": readiness.missing}
 
 
 @app.websocket("/ws")

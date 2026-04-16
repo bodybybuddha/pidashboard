@@ -18,3 +18,5 @@ The format follows Keep a Changelog conventions and semantic versioning intent.
 - Stage 3 tests covering plugin failure isolation and dashboard HTML card rendering.
 - Stage 4 shell/runtime slice: shell runtime config/readiness utilities, launch-plan builder, and `/api/system/shell/launch-plan` contract endpoint.
 - Stage 4 tests for readiness timing behavior, launch-plan contracts, and API surface verification.
+- Stage 5 deployment slice: systemd units, startup/smoke scripts, environment template, and deployment readiness contract endpoint.
+- Stage 5 tests for deployment readiness contract logic and API response schema.
