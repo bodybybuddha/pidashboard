@@ -12,3 +12,5 @@ The format follows Keep a Changelog conventions and semantic versioning intent.
 - Root project standards files (`README`, `CONTRIBUTING`, `SECURITY`, `.gitignore`, `pyproject.toml`).
 - Core Stage 1 contracts: in-memory state store, websocket manager, state snapshot/update API routes, and websocket state stream endpoint.
 - Unit and integration tests for state mutation, API snapshot access, and websocket update fan-out behavior.
+- Stage 2 MQTT normalization and ingest slice: topic normalizer, ingestion service, and `/api/mqtt/ingest` contract route.
+- Device status state mutations and MQTT-focused unit/integration contract tests.

@@ -3,14 +3,21 @@ from pydantic import BaseModel, Field
 
 from pidashboard.core.state import StateStore
 from pidashboard.core.websocket import WebSocketManager
+from pidashboard.mqtt.ingestion import MQTTIngestionService
 
 app = FastAPI(title="PiDashboard", version="0.1.0")
 state_store = StateStore()
 ws_manager = WebSocketManager()
+mqtt_ingestion = MQTTIngestionService(state_store=state_store)
 
 
 class ModeUpdateRequest(BaseModel):
     mode: str = Field(min_length=1, max_length=64)
+
+
+class MQTTIngestRequest(BaseModel):
+    topic: str = Field(min_length=1, max_length=128)
+    payload: str = Field(min_length=1, max_length=4096)
 
 
 @app.get("/health", tags=["system"])
@@ -28,6 +35,16 @@ async def set_mode(payload: ModeUpdateRequest) -> dict:
     snapshot = state_store.update_mode(payload.mode)
     await ws_manager.broadcast_json({"type": "state.update", "state": snapshot})
     return snapshot
+
+
+@app.post("/api/mqtt/ingest", tags=["mqtt"])
+async def ingest_mqtt(payload: MQTTIngestRequest) -> dict:
+    snapshot = mqtt_ingestion.ingest(topic=payload.topic, payload_raw=payload.payload)
+    if snapshot is not None:
+        await ws_manager.broadcast_json({"type": "state.update", "state": snapshot})
+        return {"accepted": True, "state": snapshot}
+
+    return {"accepted": False, "reason": "message_not_mapped"}
 
 
 @app.websocket("/ws")
