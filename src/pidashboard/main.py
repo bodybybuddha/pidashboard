@@ -1,14 +1,27 @@
-from fastapi import FastAPI, WebSocket, WebSocketDisconnect
+from pathlib import Path
+
+from fastapi import FastAPI, Request, WebSocket, WebSocketDisconnect
+from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 from pydantic import BaseModel, Field
 
 from pidashboard.core.state import StateStore
 from pidashboard.core.websocket import WebSocketManager
 from pidashboard.mqtt.ingestion import MQTTIngestionService
+from pidashboard.plugins.defaults import DeviceSummaryPlugin, ModeCardPlugin
+from pidashboard.plugins.registry import PluginRegistry
 
 app = FastAPI(title="PiDashboard", version="0.1.0")
 state_store = StateStore()
 ws_manager = WebSocketManager()
 mqtt_ingestion = MQTTIngestionService(state_store=state_store)
+plugin_registry = PluginRegistry()
+plugin_registry.register(ModeCardPlugin())
+plugin_registry.register(DeviceSummaryPlugin())
+
+templates = Jinja2Templates(
+    directory=str(Path(__file__).parent / "ui" / "templates")
+)
 
 
 class ModeUpdateRequest(BaseModel):
@@ -23,6 +36,17 @@ class MQTTIngestRequest(BaseModel):
 @app.get("/health", tags=["system"])
 def health() -> dict[str, str]:
     return {"status": "ok"}
+
+
+@app.get("/", tags=["ui"], response_class=HTMLResponse)
+def dashboard(request: Request) -> HTMLResponse:
+    state = state_store.snapshot()
+    cards = plugin_registry.list_cards(state)
+    return templates.TemplateResponse(
+        request=request,
+        name="dashboard.html",
+        context={"state": state, "cards": cards},
+    )
 
 
 @app.get("/api/state", tags=["state"])

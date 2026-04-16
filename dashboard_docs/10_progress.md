@@ -4,8 +4,8 @@ This file tracks execution status for the v1 multi-stage plan.
 
 ## Current Stage
 
-- Stage: 2 - MQTT Ingestion + Normalization
-- Status: In Progress
+- Stage: 4 - Kiosk Shell + Runtime Integration
+- Status: Ready to Start
 - Last Updated: 2026-04-16
 
 ## Stage Status Summary
@@ -14,8 +14,8 @@ This file tracks execution status for the v1 multi-stage plan.
 |---|---|---|---|
 | 0 | Foundation Scaffolding | Completed | Editable install succeeded in `.venv`; `pytest -q` passed (1 test) |
 | 1 | Core Contracts | Completed | State store + websocket manager + state API contracts implemented; `pytest -q` passed (5 tests) |
-| 2 | MQTT Ingestion + Normalization | In Progress | Message normalization + ingestion API path + contract tests added; `pytest -q` passed (12 tests) |
-| 3 | UI Rendering + Plugin Framework | Not Started | Pending implementation |
+| 2 | MQTT Ingestion + Normalization | Completed (Slice) | Normalizer + ingestion service + mapped topic contracts + tests; `pytest -q` passed (12 tests) |
+| 3 | UI Rendering + Plugin Framework | Completed (Slice) | Plugin registry + default card plugins + rendered dashboard route + tests; `pytest -q` passed (14 tests) |
 | 4 | Kiosk Shell + Runtime Integration | Not Started | Pending implementation |
 | 5 | Deployment + Hardening | Not Started | Pending implementation |
 
@@ -66,3 +66,16 @@ Blocked:
 Next:
 - Add MQTT client lifecycle wiring and topic subscription configuration.
 - Expand fixture-driven contract tests for additional topic mappings and malformed payload cases.
+
+Completed:
+- Added plugin contracts and registry with safe failure isolation in `src/pidashboard/plugins`.
+- Added default card plugins and integrated card rendering into a server-rendered dashboard route (`GET /`).
+- Added dashboard template in `src/pidashboard/ui/templates/dashboard.html`.
+- Added Stage 3 unit and integration tests for plugin registry behavior and HTML card rendering.
+- Verified test suite: `pytest -q` (14 passed).
+
+Blocked:
+- None.
+
+Next:
+- Implement Stage 4 shell runtime readiness checks and launch configuration contracts.
