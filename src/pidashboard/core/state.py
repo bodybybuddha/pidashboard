@@ -11,6 +11,7 @@ class StateStore:
     def __init__(self) -> None:
         self._state: dict[str, Any] = {
             "mode": "home",
+            "devices": {},
             "updated_at": self._now_iso(),
         }
 
@@ -23,5 +24,11 @@ class StateStore:
 
     def update_mode(self, mode: str) -> dict[str, Any]:
         self._state["mode"] = mode
+        self._state["updated_at"] = self._now_iso()
+        return self.snapshot()
+
+    def upsert_device_status(self, device: str, status: str) -> dict[str, Any]:
+        devices = self._state.setdefault("devices", {})
+        devices[device] = {"status": status}
         self._state["updated_at"] = self._now_iso()
         return self.snapshot()

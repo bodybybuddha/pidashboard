@@ -5,7 +5,7 @@ This file tracks execution status for the v1 multi-stage plan.
 ## Current Stage
 
 - Stage: 2 - MQTT Ingestion + Normalization
-- Status: Ready to Start
+- Status: In Progress
 - Last Updated: 2026-04-16
 
 ## Stage Status Summary
@@ -14,7 +14,7 @@ This file tracks execution status for the v1 multi-stage plan.
 |---|---|---|---|
 | 0 | Foundation Scaffolding | Completed | Editable install succeeded in `.venv`; `pytest -q` passed (1 test) |
 | 1 | Core Contracts | Completed | State store + websocket manager + state API contracts implemented; `pytest -q` passed (5 tests) |
-| 2 | MQTT Ingestion + Normalization | Not Started | Pending implementation |
+| 2 | MQTT Ingestion + Normalization | In Progress | Message normalization + ingestion API path + contract tests added; `pytest -q` passed (12 tests) |
 | 3 | UI Rendering + Plugin Framework | Not Started | Pending implementation |
 | 4 | Kiosk Shell + Runtime Integration | Not Started | Pending implementation |
 | 5 | Deployment + Hardening | Not Started | Pending implementation |
@@ -51,3 +51,18 @@ Blocked:
 
 Next:
 - Implement Stage 2 MQTT ingestion lifecycle, topic normalization contracts, and fixture-driven tests.
+
+Completed:
+- Added MQTT topic/payload normalizer in `src/pidashboard/mqtt/normalizer.py`.
+- Added ingestion service to translate normalized events into explicit state mutations in `src/pidashboard/mqtt/ingestion.py`.
+- Extended state contract with device status upsert support in `src/pidashboard/core/state.py`.
+- Added MQTT ingest API route (`POST /api/mqtt/ingest`) and websocket update fan-out in `src/pidashboard/main.py`.
+- Added Stage 2 unit and integration tests for normalization and ingest contracts.
+- Verified test suite: `pytest -q` (12 passed).
+
+Blocked:
+- None.
+
+Next:
+- Add MQTT client lifecycle wiring and topic subscription configuration.
+- Expand fixture-driven contract tests for additional topic mappings and malformed payload cases.
