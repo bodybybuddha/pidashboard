@@ -14,3 +14,5 @@ The format follows Keep a Changelog conventions and semantic versioning intent.
 - Unit and integration tests for state mutation, API snapshot access, and websocket update fan-out behavior.
 - Stage 2 MQTT normalization and ingest slice: topic normalizer, ingestion service, and `/api/mqtt/ingest` contract route.
 - Device status state mutations and MQTT-focused unit/integration contract tests.
+- Stage 3 UI/plugin slice: plugin contracts and registry, default card plugins, and server-rendered dashboard route with template-backed cards.
+- Stage 3 tests covering plugin failure isolation and dashboard HTML card rendering.
