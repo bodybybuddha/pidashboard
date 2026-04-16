@@ -4,16 +4,16 @@ This file tracks execution status for the v1 multi-stage plan.
 
 ## Current Stage
 
-- Stage: 1 - Core Contracts (Gate 1)
+- Stage: 2 - MQTT Ingestion + Normalization
 - Status: Ready to Start
-- Last Updated: 2026-04-15
+- Last Updated: 2026-04-16
 
 ## Stage Status Summary
 
 | Stage | Name | Status | Evidence |
 |---|---|---|---|
 | 0 | Foundation Scaffolding | Completed | Editable install succeeded in `.venv`; `pytest -q` passed (1 test) |
-| 1 | Core Contracts | Not Started | Pending implementation |
+| 1 | Core Contracts | Completed | State store + websocket manager + state API contracts implemented; `pytest -q` passed (5 tests) |
 | 2 | MQTT Ingestion + Normalization | Not Started | Pending implementation |
 | 3 | UI Rendering + Plugin Framework | Not Started | Pending implementation |
 | 4 | Kiosk Shell + Runtime Integration | Not Started | Pending implementation |
@@ -36,3 +36,18 @@ Blocked:
 
 Next:
 - Implement Stage 1 core contracts: state store, websocket manager, and related tests.
+
+### 2026-04-16
+
+Completed:
+- Implemented core state contract with defensive snapshots and explicit mode updates in `src/pidashboard/core/state.py`.
+- Implemented websocket connection manager with contained broadcast failures in `src/pidashboard/core/websocket.py`.
+- Added state contract API routes (`GET /api/state`, `POST /api/state/mode`) and websocket stream (`/ws`) in `src/pidashboard/main.py`.
+- Added unit tests for state store behavior and integration tests for API + websocket update flow.
+- Verified Gate 1 testability with `pytest -q` (5 passed).
+
+Blocked:
+- None.
+
+Next:
+- Implement Stage 2 MQTT ingestion lifecycle, topic normalization contracts, and fixture-driven tests.
